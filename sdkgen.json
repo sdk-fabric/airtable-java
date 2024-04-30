@@ -1,0 +1,9 @@
+{
+  "type": "client-java",
+  "require": {
+    "sdkfabric/airtable": {
+      "target": "./src/main/java/org/sdkfabric/airtable",
+      "namespace": "org.sdkfabric.airtable"
+    }
+  }
+}

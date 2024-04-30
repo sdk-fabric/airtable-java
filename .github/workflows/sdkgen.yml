@@ -1,0 +1,50 @@
+name: SDKgen
+on:
+  workflow_dispatch:
+    inputs:
+      typehub_message:
+        description: "The TypeHub commit message on commit"
+        required: false
+      typehub_version:
+        description: "The TypeHub version on tag"
+        required: false
+      typehub_changelog:
+        description: "The TypeHub changelog on tag"
+        required: false
+permissions:
+  contents: 'write'
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: apioo/sdkgen-generator-action@v0.2.1
+        with:
+          client_id: '${{ secrets.SDKGEN_CLIENT_ID }}'
+          client_secret: '${{ secrets.SDKGEN_CLIENT_SECRET }}'
+          typehub_message: '${{ inputs.typehub_message }}'
+          typehub_version: '${{ inputs.typehub_version }}'
+          typehub_changelog: '${{ inputs.typehub_changelog }}'
+  publish:
+    if: "${{ inputs.typehub_version != '' }}"
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+      - name: Update version
+        run: mvn versions:set -DnewVersion="${{ inputs.typehub_version }}"
+      - name: Publish package
+        run: mvn --batch-mode clean deploy
+        env:
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
