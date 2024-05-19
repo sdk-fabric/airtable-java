@@ -13,6 +13,7 @@ import app.sdkgen.client.Exception.ClientException;
 import app.sdkgen.client.Exception.UnknownStatusCodeException;
 import app.sdkgen.client.Parser;
 import app.sdkgen.client.TokenStoreInterface;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -45,6 +46,15 @@ public class Client extends ClientAbstract {
     public RecordsTag records()
     {
         return new RecordsTag(
+            this.httpClient,
+            this.objectMapper,
+            this.parser
+        );
+    }
+
+    public FieldsTag fields()
+    {
+        return new FieldsTag(
             this.httpClient,
             this.objectMapper,
             this.parser

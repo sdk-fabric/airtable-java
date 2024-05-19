@@ -9,6 +9,7 @@ import app.sdkgen.client.Exception.ClientException;
 import app.sdkgen.client.Exception.UnknownStatusCodeException;
 import app.sdkgen.client.Parser;
 import app.sdkgen.client.TagAbstract;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
@@ -55,7 +56,7 @@ public class RecordsTag extends TagAbstract {
             queryParams.put("returnFieldsByFieldId", returnFieldsByFieldId);
             queryParams.put("recordMetadata", recordMetadata);
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -67,7 +68,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, RecordCollection.class);
+                return this.parser.parse(resp.payload, new TypeReference<RecordCollection>(){});
             }
 
             switch (resp.code) {
@@ -91,7 +92,7 @@ public class RecordsTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName/:recordId", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -103,7 +104,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, Record.class);
+                return this.parser.parse(resp.payload, new TypeReference<Record>(){});
             }
 
             switch (resp.code) {
@@ -127,7 +128,7 @@ public class RecordsTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName/:recordId", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -141,7 +142,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, Record.class);
+                return this.parser.parse(resp.payload, new TypeReference<Record>(){});
             }
 
             switch (resp.code) {
@@ -164,7 +165,7 @@ public class RecordsTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -178,7 +179,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, BulkUpdateResponse.class);
+                return this.parser.parse(resp.payload, new TypeReference<BulkUpdateResponse>(){});
             }
 
             switch (resp.code) {
@@ -202,7 +203,7 @@ public class RecordsTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName/:recordId", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -216,7 +217,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, Record.class);
+                return this.parser.parse(resp.payload, new TypeReference<Record>(){});
             }
 
             switch (resp.code) {
@@ -239,7 +240,7 @@ public class RecordsTag extends TagAbstract {
 
             Map<String, Object> queryParams = new HashMap<>();
 
-            List<String> queryStructNames = new ArrayList<String>();
+            List<String> queryStructNames = new ArrayList<>();
 
             URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName", pathParams));
             this.parser.query(builder, queryParams, queryStructNames);
@@ -253,7 +254,7 @@ public class RecordsTag extends TagAbstract {
             });
 
             if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, BulkUpdateResponse.class);
+                return this.parser.parse(resp.payload, new TypeReference<BulkUpdateResponse>(){});
             }
 
             switch (resp.code) {
