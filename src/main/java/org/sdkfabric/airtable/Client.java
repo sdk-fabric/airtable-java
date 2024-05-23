@@ -61,6 +61,15 @@ public class Client extends ClientAbstract {
         );
     }
 
+    public TableTag table()
+    {
+        return new TableTag(
+            this.httpClient,
+            this.objectMapper,
+            this.parser
+        );
+    }
+
 
 
     public static Client build(String token) throws InvalidCredentialsException
