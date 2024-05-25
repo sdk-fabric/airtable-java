@@ -61,9 +61,18 @@ public class Client extends ClientAbstract {
         );
     }
 
-    public TableTag table()
+    public TablesTag tables()
     {
-        return new TableTag(
+        return new TablesTag(
+            this.httpClient,
+            this.objectMapper,
+            this.parser
+        );
+    }
+
+    public CommentsTag comments()
+    {
+        return new CommentsTag(
             this.httpClient,
             this.objectMapper,
             this.parser
