@@ -59,6 +59,14 @@ public class FieldsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -94,6 +102,14 @@ public class FieldsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
