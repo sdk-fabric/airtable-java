@@ -72,6 +72,14 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -108,6 +116,59 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                default:
+                    throw new UnknownStatusCodeException("The server returned an unknown status code");
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Creates multiple records. Note that table names and table ids can be used interchangeably. We recommend using table IDs so you don&#039;t need to modify your API request when your table name changes.
+     */
+    public RecordCollection create(String baseId, String tableIdOrName, RecordCollection payload) throws ClientException {
+        try {
+            Map<String, Object> pathParams = new HashMap<>();
+            pathParams.put("baseId", baseId);
+            pathParams.put("tableIdOrName", tableIdOrName);
+
+            Map<String, Object> queryParams = new HashMap<>();
+
+            List<String> queryStructNames = new ArrayList<>();
+
+            URIBuilder builder = new URIBuilder(this.parser.url("/v0/:baseId/:tableIdOrName", pathParams));
+            this.parser.query(builder, queryParams, queryStructNames);
+
+            HttpPost request = new HttpPost(builder.build());
+            request.addHeader("Content-Type", "application/json");
+            request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
+
+            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
+                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            });
+
+            if (resp.code >= 200 && resp.code < 300) {
+                return this.parser.parse(resp.payload, new TypeReference<RecordCollection>(){});
+            }
+
+            switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -146,6 +207,14 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -183,6 +252,14 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -221,6 +298,14 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
@@ -258,6 +343,14 @@ public class RecordsTag extends TagAbstract {
             }
 
             switch (resp.code) {
+                case 400:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 403:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 404:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
+                case 500:
+                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
                 default:
                     throw new UnknownStatusCodeException("The server returned an unknown status code");
             }
