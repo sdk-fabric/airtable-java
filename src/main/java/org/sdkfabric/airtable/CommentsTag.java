@@ -13,15 +13,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.entity.*;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +33,9 @@ public class CommentsTag extends TagAbstract {
     }
 
 
+    /**
+     * Returns a list of comments for the record from newest to oldest.
+     */
     public CommentCollection getAll(String baseId, String tableIdOrName, String recordId) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
@@ -49,31 +52,49 @@ public class CommentsTag extends TagAbstract {
 
             HttpGet request = new HttpGet(builder.build());
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<CommentCollection>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<CommentCollection>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * Creates a comment on a record. User mentioned is supported.
+     */
     public Comment create(String baseId, String tableIdOrName, String recordId, Comment payload) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
@@ -89,34 +110,52 @@ public class CommentsTag extends TagAbstract {
             this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPost request = new HttpPost(builder.build());
-            request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            request.setHeader("Content-Type", "application/json");
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Comment>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<Comment>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * Updates a comment on a record. API users can only update comments they have created. User mentioned is supported.
+     */
     public Comment update(String baseId, String tableIdOrName, String recordId, String rowCommentId, Comment payload) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
@@ -133,35 +172,53 @@ public class CommentsTag extends TagAbstract {
             this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPatch request = new HttpPatch(builder.build());
-            request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            request.setHeader("Content-Type", "application/json");
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Comment>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<Comment>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
 
-    public CommentDeleteResponse delete(String baseId, String tableIdOrName, String recordId, String rowCommentId) throws ClientException {
+    /**
+     * Deletes a comment from a record. Non-admin API users can only delete comments they have created. Enterprise Admins can delete any comment from a record.
+     */
+    public DeleteResponse delete(String baseId, String tableIdOrName, String recordId, String rowCommentId) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
             pathParams.put("baseId", baseId);
@@ -178,30 +235,46 @@ public class CommentsTag extends TagAbstract {
 
             HttpDelete request = new HttpDelete(builder.build());
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<DeleteResponse>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<CommentDeleteResponse>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
+
 
 
 }

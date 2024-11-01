@@ -7,11 +7,10 @@ package org.sdkfabric.airtable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.Map;
 public class Record {
     private String id;
     private String createdTime;
-    private Map<String, Object> fields;
+    private java.util.Map<String, Object> fields;
     @JsonSetter("id")
     public void setId(String id) {
         this.id = id;
@@ -29,11 +28,11 @@ public class Record {
         return this.createdTime;
     }
     @JsonSetter("fields")
-    public void setFields(Map<String, Object> fields) {
+    public void setFields(java.util.Map<String, Object> fields) {
         this.fields = fields;
     }
     @JsonGetter("fields")
-    public Map<String, Object> getFields() {
+    public java.util.Map<String, Object> getFields() {
         return this.fields;
     }
 }

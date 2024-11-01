@@ -13,15 +13,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.entity.*;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +33,9 @@ public class FieldsTag extends TagAbstract {
     }
 
 
+    /**
+     * Creates a new column and returns the schema for the newly created column.
+     */
     public Field create(String baseId, String tableId, Field payload) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
@@ -47,34 +50,52 @@ public class FieldsTag extends TagAbstract {
             this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPost request = new HttpPost(builder.build());
-            request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            request.setHeader("Content-Type", "application/json");
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Field>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<Field>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * Updates the name and/or description of a field. At least one of name or description must be specified.
+     */
     public Field update(String baseId, String tableId, String columnId, Field payload) throws ClientException {
         try {
             Map<String, Object> pathParams = new HashMap<>();
@@ -90,33 +111,49 @@ public class FieldsTag extends TagAbstract {
             this.parser.query(builder, queryParams, queryStructNames);
 
             HttpPatch request = new HttpPatch(builder.build());
-            request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(this.objectMapper.writeValueAsString(payload), ContentType.APPLICATION_JSON));
 
-            final Parser.HttpReturn resp = this.httpClient.execute(request, response -> {
-                return this.parser.handle(response.getCode(), EntityUtils.toString(response.getEntity()));
+            request.setHeader("Content-Type", "application/json");
+
+            return this.httpClient.execute(request, response -> {
+                if (response.getCode() >= 200 && response.getCode() <= 299) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Field>(){});
+
+                    return data;
+                }
+
+                var statusCode = response.getCode();
+                if (statusCode == 400) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 403) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 404) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                if (statusCode == 500) {
+                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
+
+                    throw new ErrorException(data);
+                }
+
+                throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
-
-            if (resp.code >= 200 && resp.code < 300) {
-                return this.parser.parse(resp.payload, new TypeReference<Field>(){});
-            }
-
-            switch (resp.code) {
-                case 400:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 403:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 404:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                case 500:
-                    throw new ErrorException(this.parser.parse(resp.payload, new TypeReference<Error>(){}));
-                default:
-                    throw new UnknownStatusCodeException("The server returned an unknown status code");
-            }
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
     }
+
 
 
 }
