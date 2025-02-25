@@ -19,7 +19,7 @@ the code.
 The following example shows how you initialize the client:
 
 ```java
-import SdkFabric.Airtable.Client;
+import org.sdkfabric.airtable.Client;
 
 Client client = Client::build("[access_token]");
 
