@@ -7,33 +7,32 @@ package org.sdkfabric.airtable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class BulkUpdateResponse {
-    private List<String> createdRecords;
-    private List<String> updatedRecords;
-    private List<Record> records;
+    private java.util.List<String> createdRecords;
+    private java.util.List<String> updatedRecords;
+    private java.util.List<Record> records;
     @JsonSetter("createdRecords")
-    public void setCreatedRecords(List<String> createdRecords) {
+    public void setCreatedRecords(java.util.List<String> createdRecords) {
         this.createdRecords = createdRecords;
     }
     @JsonGetter("createdRecords")
-    public List<String> getCreatedRecords() {
+    public java.util.List<String> getCreatedRecords() {
         return this.createdRecords;
     }
     @JsonSetter("updatedRecords")
-    public void setUpdatedRecords(List<String> updatedRecords) {
+    public void setUpdatedRecords(java.util.List<String> updatedRecords) {
         this.updatedRecords = updatedRecords;
     }
     @JsonGetter("updatedRecords")
-    public List<String> getUpdatedRecords() {
+    public java.util.List<String> getUpdatedRecords() {
         return this.updatedRecords;
     }
     @JsonSetter("records")
-    public void setRecords(List<Record> records) {
+    public void setRecords(java.util.List<Record> records) {
         this.records = records;
     }
     @JsonGetter("records")
-    public List<Record> getRecords() {
+    public java.util.List<Record> getRecords() {
         return this.records;
     }
 }

@@ -7,18 +7,17 @@ package org.sdkfabric.airtable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class BulkUpdateRequest {
-    private List<String> performUpsert;
+    private java.util.List<String> performUpsert;
     private Boolean returnFieldsByFieldId;
     private Boolean typecast;
-    private List<Record> records;
+    private java.util.List<Record> records;
     @JsonSetter("performUpsert")
-    public void setPerformUpsert(List<String> performUpsert) {
+    public void setPerformUpsert(java.util.List<String> performUpsert) {
         this.performUpsert = performUpsert;
     }
     @JsonGetter("performUpsert")
-    public List<String> getPerformUpsert() {
+    public java.util.List<String> getPerformUpsert() {
         return this.performUpsert;
     }
     @JsonSetter("returnFieldsByFieldId")
@@ -38,11 +37,11 @@ public class BulkUpdateRequest {
         return this.typecast;
     }
     @JsonSetter("records")
-    public void setRecords(List<Record> records) {
+    public void setRecords(java.util.List<Record> records) {
         this.records = records;
     }
     @JsonGetter("records")
-    public List<Record> getRecords() {
+    public java.util.List<Record> getRecords() {
         return this.records;
     }
 }

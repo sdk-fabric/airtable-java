@@ -7,10 +7,9 @@ package org.sdkfabric.airtable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 public class CommentCollection {
     private String offset;
-    private List<Comment> records;
+    private java.util.List<Comment> records;
     @JsonSetter("offset")
     public void setOffset(String offset) {
         this.offset = offset;
@@ -20,11 +19,11 @@ public class CommentCollection {
         return this.offset;
     }
     @JsonSetter("records")
-    public void setRecords(List<Comment> records) {
+    public void setRecords(java.util.List<Comment> records) {
         this.records = records;
     }
     @JsonGetter("records")
-    public List<Comment> getRecords() {
+    public java.util.List<Comment> getRecords() {
         return this.records;
     }
 }

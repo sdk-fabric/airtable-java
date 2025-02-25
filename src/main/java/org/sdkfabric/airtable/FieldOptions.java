@@ -7,7 +7,5 @@ package org.sdkfabric.airtable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.Map;
-import java.util.HashMap;
-public class FieldOptions extends HashMap<String, Object> {
+public class FieldOptions extends java.util.HashMap<String, Object> {
 }
