@@ -5,34 +5,41 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class Record {
     private String id;
     private String createdTime;
     private java.util.Map<String, Object> fields;
+
     @JsonSetter("id")
     public void setId(String id) {
         this.id = id;
     }
+
     @JsonGetter("id")
     public String getId() {
         return this.id;
     }
+
     @JsonSetter("createdTime")
     public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
+
     @JsonGetter("createdTime")
     public String getCreatedTime() {
         return this.createdTime;
     }
+
     @JsonSetter("fields")
     public void setFields(java.util.Map<String, Object> fields) {
         this.fields = fields;
     }
+
     @JsonGetter("fields")
     public java.util.Map<String, Object> getFields() {
         return this.fields;
     }
 }
+

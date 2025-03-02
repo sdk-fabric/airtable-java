@@ -5,25 +5,30 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class CommentReaction {
     private String emoji;
     private CommentAuthor reactingUser;
+
     @JsonSetter("emoji")
     public void setEmoji(String emoji) {
         this.emoji = emoji;
     }
+
     @JsonGetter("emoji")
     public String getEmoji() {
         return this.emoji;
     }
+
     @JsonSetter("reactingUser")
     public void setReactingUser(CommentAuthor reactingUser) {
         this.reactingUser = reactingUser;
     }
+
     @JsonGetter("reactingUser")
     public CommentAuthor getReactingUser() {
         return this.reactingUser;
     }
 }
+

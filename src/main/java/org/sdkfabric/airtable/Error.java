@@ -5,16 +5,19 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class Error {
     private ErrorDetails error;
+
     @JsonSetter("error")
     public void setError(ErrorDetails error) {
         this.error = error;
     }
+
     @JsonGetter("error")
     public ErrorDetails getError() {
         return this.error;
     }
 }
+

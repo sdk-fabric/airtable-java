@@ -5,43 +5,52 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class BulkUpdateRequest {
     private java.util.List<String> performUpsert;
     private Boolean returnFieldsByFieldId;
     private Boolean typecast;
     private java.util.List<Record> records;
+
     @JsonSetter("performUpsert")
     public void setPerformUpsert(java.util.List<String> performUpsert) {
         this.performUpsert = performUpsert;
     }
+
     @JsonGetter("performUpsert")
     public java.util.List<String> getPerformUpsert() {
         return this.performUpsert;
     }
+
     @JsonSetter("returnFieldsByFieldId")
     public void setReturnFieldsByFieldId(Boolean returnFieldsByFieldId) {
         this.returnFieldsByFieldId = returnFieldsByFieldId;
     }
+
     @JsonGetter("returnFieldsByFieldId")
     public Boolean getReturnFieldsByFieldId() {
         return this.returnFieldsByFieldId;
     }
+
     @JsonSetter("typecast")
     public void setTypecast(Boolean typecast) {
         this.typecast = typecast;
     }
+
     @JsonGetter("typecast")
     public Boolean getTypecast() {
         return this.typecast;
     }
+
     @JsonSetter("records")
     public void setRecords(java.util.List<Record> records) {
         this.records = records;
     }
+
     @JsonGetter("records")
     public java.util.List<Record> getRecords() {
         return this.records;
     }
 }
+

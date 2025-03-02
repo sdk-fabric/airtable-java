@@ -5,52 +5,63 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class Table {
     private String id;
     private String primaryFieldId;
     private String name;
     private String description;
     private java.util.List<Field> fields;
+
     @JsonSetter("id")
     public void setId(String id) {
         this.id = id;
     }
+
     @JsonGetter("id")
     public String getId() {
         return this.id;
     }
+
     @JsonSetter("primaryFieldId")
     public void setPrimaryFieldId(String primaryFieldId) {
         this.primaryFieldId = primaryFieldId;
     }
+
     @JsonGetter("primaryFieldId")
     public String getPrimaryFieldId() {
         return this.primaryFieldId;
     }
+
     @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
     }
+
     @JsonGetter("name")
     public String getName() {
         return this.name;
     }
+
     @JsonSetter("description")
     public void setDescription(String description) {
         this.description = description;
     }
+
     @JsonGetter("description")
     public String getDescription() {
         return this.description;
     }
+
     @JsonSetter("fields")
     public void setFields(java.util.List<Field> fields) {
         this.fields = fields;
     }
+
     @JsonGetter("fields")
     public java.util.List<Field> getFields() {
         return this.fields;
     }
 }
+

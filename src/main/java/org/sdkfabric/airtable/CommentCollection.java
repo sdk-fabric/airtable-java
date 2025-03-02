@@ -5,25 +5,30 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class CommentCollection {
     private String offset;
     private java.util.List<Comment> records;
+
     @JsonSetter("offset")
     public void setOffset(String offset) {
         this.offset = offset;
     }
+
     @JsonGetter("offset")
     public String getOffset() {
         return this.offset;
     }
+
     @JsonSetter("records")
     public void setRecords(java.util.List<Comment> records) {
         this.records = records;
     }
+
     @JsonGetter("records")
     public java.util.List<Comment> getRecords() {
         return this.records;
     }
 }
+

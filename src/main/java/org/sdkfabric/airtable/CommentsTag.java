@@ -61,25 +61,7 @@ public class CommentsTag extends TagAbstract {
                 }
 
                 var statusCode = response.getCode();
-                if (statusCode == 400) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 403) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 404) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 500) {
+                if (statusCode >= 0 && statusCode <= 999) {
                     var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
 
                     throw new ErrorException(data);
@@ -87,6 +69,8 @@ public class CommentsTag extends TagAbstract {
 
                 throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
+        } catch (ClientException e) {
+            throw e;
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
@@ -122,25 +106,7 @@ public class CommentsTag extends TagAbstract {
                 }
 
                 var statusCode = response.getCode();
-                if (statusCode == 400) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 403) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 404) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 500) {
+                if (statusCode >= 0 && statusCode <= 999) {
                     var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
 
                     throw new ErrorException(data);
@@ -148,6 +114,8 @@ public class CommentsTag extends TagAbstract {
 
                 throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
+        } catch (ClientException e) {
+            throw e;
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
@@ -184,25 +152,7 @@ public class CommentsTag extends TagAbstract {
                 }
 
                 var statusCode = response.getCode();
-                if (statusCode == 400) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 403) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 404) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 500) {
+                if (statusCode >= 0 && statusCode <= 999) {
                     var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
 
                     throw new ErrorException(data);
@@ -210,6 +160,8 @@ public class CommentsTag extends TagAbstract {
 
                 throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
+        } catch (ClientException e) {
+            throw e;
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }
@@ -244,25 +196,7 @@ public class CommentsTag extends TagAbstract {
                 }
 
                 var statusCode = response.getCode();
-                if (statusCode == 400) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 403) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 404) {
-                    var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
-
-                    throw new ErrorException(data);
-                }
-
-                if (statusCode == 500) {
+                if (statusCode >= 0 && statusCode <= 999) {
                     var data = this.parser.parse(EntityUtils.toString(response.getEntity()), new TypeReference<Error>(){});
 
                     throw new ErrorException(data);
@@ -270,6 +204,8 @@ public class CommentsTag extends TagAbstract {
 
                 throw new UnknownStatusCodeException("The server returned an unknown status code: " + statusCode);
             });
+        } catch (ClientException e) {
+            throw e;
         } catch (URISyntaxException | IOException e) {
             throw new ClientException("An unknown error occurred: " + e.getMessage(), e);
         }

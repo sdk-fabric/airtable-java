@@ -5,8 +5,8 @@
 
 package org.sdkfabric.airtable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
+
 public class Comment {
     private String id;
     private String createdTime;
@@ -15,60 +15,75 @@ public class Comment {
     private String parentCommentId;
     private String reactions;
     private CommentAuthor author;
+
     @JsonSetter("id")
     public void setId(String id) {
         this.id = id;
     }
+
     @JsonGetter("id")
     public String getId() {
         return this.id;
     }
+
     @JsonSetter("createdTime")
     public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
+
     @JsonGetter("createdTime")
     public String getCreatedTime() {
         return this.createdTime;
     }
+
     @JsonSetter("lastUpdatedTime")
     public void setLastUpdatedTime(String lastUpdatedTime) {
         this.lastUpdatedTime = lastUpdatedTime;
     }
+
     @JsonGetter("lastUpdatedTime")
     public String getLastUpdatedTime() {
         return this.lastUpdatedTime;
     }
+
     @JsonSetter("text")
     public void setText(String text) {
         this.text = text;
     }
+
     @JsonGetter("text")
     public String getText() {
         return this.text;
     }
+
     @JsonSetter("parentCommentId")
     public void setParentCommentId(String parentCommentId) {
         this.parentCommentId = parentCommentId;
     }
+
     @JsonGetter("parentCommentId")
     public String getParentCommentId() {
         return this.parentCommentId;
     }
+
     @JsonSetter("reactions")
     public void setReactions(String reactions) {
         this.reactions = reactions;
     }
+
     @JsonGetter("reactions")
     public String getReactions() {
         return this.reactions;
     }
+
     @JsonSetter("author")
     public void setAuthor(CommentAuthor author) {
         this.author = author;
     }
+
     @JsonGetter("author")
     public CommentAuthor getAuthor() {
         return this.author;
     }
 }
+
