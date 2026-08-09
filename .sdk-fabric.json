@@ -1,0 +1,14 @@
+{
+  "typehub_user": "sdkfabric",
+  "typehub_document": "airtable",
+  "github_user": "sdk-fabric",
+  "github_repository": "airtable-java",
+
+  "name": "Airtable",
+  "description": "Airtable C# SDK managed by SDK Fabric",
+  "website": "https://sdk-fabric.org",
+  "namespace": "org.sdkfabric.airtable",
+  "namespace_path": "org/sdkfabric/airtable",
+  "group_id": "org.sdkfabric",
+  "artifact_id": "airtable"
+}
