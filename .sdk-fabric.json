@@ -5,10 +5,10 @@
   "github_repository": "airtable-java",
 
   "name": "Airtable",
-  "description": "Airtable C# SDK managed by SDK Fabric",
+  "description": "Airtable Java SDK managed by SDK Fabric",
   "website": "https://sdk-fabric.org",
   "namespace": "org.sdkfabric.airtable",
   "namespace_path": "org/sdkfabric/airtable",
-  "group_id": "org.sdkfabric",
+  "group_id": "org.sdk-fabric",
   "artifact_id": "airtable"
 }
