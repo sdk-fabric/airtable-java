@@ -1,9 +1,4 @@
 {
-  "typehub_user": "sdkfabric",
-  "typehub_document": "airtable",
-  "github_user": "sdk-fabric",
-  "github_repository": "airtable-java",
-
   "name": "Airtable",
   "description": "Airtable Java SDK managed by SDK Fabric",
   "website": "https://sdk-fabric.org",
